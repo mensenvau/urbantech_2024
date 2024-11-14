@@ -7,7 +7,7 @@ let func = {
     authSignIn, authSignUp, authLogout
 }
 
-app.use("/v1", async (req, res) => {
+app.use("/v1", async (req, res, next) => {
     const { type, input } = req.body;
 
     if (!type || !input) return res.status(400).json({ error: "Missing 'type' or 'input' in request body" });
@@ -19,7 +19,7 @@ app.use("/v1", async (req, res) => {
         let data = await selected(input);
         res.json({ data });
     } catch (error) {
-        throw new Error({ error: "Function execution failed" });
+        next(new Error(error.message));
     }
 });
 
