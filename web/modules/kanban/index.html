@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanban Board</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="kanban-board">
+    <div class="column" data-status="To-Do">
+      <h2>To-Do</h2>
+      <div class="task-container" id="to-do"></div>
+      <button class="add-task-btn" onclick="openModal('to-do')">Add Task</button>
+    </div>
+    <div class="column" data-status="In Progress">
+      <h2>In Progress</h2>
+      <div class="task-container" id="in-progress"></div>
+      <button class="add-task-btn" onclick="openModal('in-progress')">Add Task</button>
+    </div>
+    <div class="column" data-status="Testing">
+      <h2>Testing</h2>
+      <div class="task-container" id="testing"></div>
+      <button class="add-task-btn" onclick="openModal('testing')">Add Task</button>
+    </div>
+    <div class="column" data-status="Review">
+      <h2>Review</h2>
+      <div class="task-container" id="review"></div>
+      <button class="add-task-btn" onclick="openModal('review')">Add Task</button>
+    </div>
+  </div>
+
+<!-- Modal for Adding Tasks -->
+<div id="task-modal" class="modal" onclick="handleModalBackgroundClick(event)">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>Add New Task</h2>
+    <form id="task-form">
+      <input type="hidden" id="column-id">
+      <label for="task-name">Task Name:</label>
+      <input type="text" id="task-name" required>
+
+      <label for="task-desc">Description:</label>
+      <textarea id="task-desc" required></textarea>
+      
+      <label for="task-start">Start Date:</label>
+      <input type="date" id="task-start" required>
+
+      <label for="task-end">End Date:</label>
+      <input type="date" id="task-end" required>
+
+      <div class="form-buttons">
+        <button type="submit">Add Task</button>
+        <button type="button" onclick="closeModal()">Close</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
