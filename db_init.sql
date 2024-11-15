@@ -63,16 +63,20 @@ create table timesheets (
     id int auto_increment primary key,
     employee_id int not null,
     date_worked date not null,
-    hours_worked decimal(5,2) not null,
-    start_datetime datetime not null,
-    end_datetime datetime not null,
-    task_description varchar(500),
-    approved boolean default false,
+    hours_worked decimal(5,2),
+    start_time time,
+    end_time time,
     active boolean default true,
     updated_dt datetime default current_timestamp on update current_timestamp,
     created_dt datetime default current_timestamp,
     constraint fk_timesheet_employee foreign key (employee_id) references employees(id) on delete cascade
 );
+
+select current_date()
+
+
+select * from timesheets ;
+
 
 #################### view ####################
 create view vw_users as (

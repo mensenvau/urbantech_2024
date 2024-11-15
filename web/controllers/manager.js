@@ -56,6 +56,10 @@ exports.managerGetProfile = fnCatch(async (req, res) => {
     res.render("manager/main", { data: req.data, page: "profile", branch, user, employee });
 });
 
+exports.managerTraining = fnCatch(async (req, res) => {
+    res.render("employee/main", { data: req.data, page: "training" });
+});
+
 exports.managerWait = fnCatch(async (req, res) => {
     res.render("manager/main", { data: req.data, page: "home", arr: [] });
 });

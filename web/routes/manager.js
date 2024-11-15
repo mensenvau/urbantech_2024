@@ -4,7 +4,8 @@ const {
     managerPostEmployees,
     managerDeleteEmployees,
     managerGetProfile,
-    adminResetPassword
+    adminResetPassword,
+    managerTraining
 } = require("../controllers/manager");
 const { checkAuth } = require("../controllers/auth");
 
@@ -19,5 +20,7 @@ module.exports = function (app) {
     app.get("/admin/employees/reset", adminResetPassword); // admin rest password
 
     app.get("/manager/profile", managerGetProfile); // get
+    app.get("/manager/training", managerTraining); // get
+
 
 };
