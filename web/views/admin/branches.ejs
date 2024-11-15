@@ -1,5 +1,5 @@
 <div class="mb-3">
-    <h4>Tarmoq paneli</h4>
+    <h4>Department panel</h4>
 
     <div class="row">
         <div class="col-md-8 mb-3">
@@ -10,8 +10,8 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th>Department</th>
-                                    <th>Department Desc</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -20,7 +20,7 @@
                                 <tr>
                                     <td scope="row"><%= arr[i].id %></td>
                                     <td><%= arr[i].branch_name %></td>
-                                    <td><%= arr[i].phone_num %></td>
+                                    <td><%= arr[i].branch_description %></td>
                                     <td>
                                         <a href="/admin/branches?edit=<%= arr[i].id %>">
                                             <i class="fas fa-pencil-alt"></i>
@@ -30,8 +30,8 @@
                                             <i class="fas fa-users"></i>
                                         </a>
                                         <div class="vr"></div>
-                                        <a href="/admin/<%= arr[i].id %>/calendar">
-                                            <i class="fas fa-calendar-alt"></i>
+                                        <a href="/admin/<%= arr[i].id %>/timesheet">
+                                            <i class="fas fa-clock"></i>
                                         </a>
                                     </td>
                                 </tr>
@@ -50,19 +50,18 @@
                     <form method="post" class="px-2">
                         <input type="hidden" name="id" value="<%= one?.id || 0 %>" />
                         <div class="mb-3">
-                            <label>Department name</label>
+                            <label>Name</label>
                             <input type="text" class="form-control" name="branch_name" placeholder="ex: XYZ Team" value="<%= one?.branch_name %>" required />
                         </div>
 
                         <div class="mb-3">
-                            <label>Department desc</label>
-                            <input type="text" class="form-control" name="branch_description" placeholder="ex: IT department" value="<%= one?.phone_num %>" />
+                            <label>Description</label>
+                            <input type="text" class="form-control" name="branch_description" placeholder="ex: IT department" value="<%= one?.branch_description %>" />
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Saqlash</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                         <% if(one?.id>0) { %>
-                        <a href="/admin/branches/del?id=<%= one?.id %>" class="btn btn-danger">O'chirish</a>
-                        <a href="/admin/branches/reset?id=<%= one?.id %>" class="btn btn-success">Yangi parol</a>
+                        <a href="/admin/branches/del?id=<%= one?.id %>" class="btn btn-danger">Delete</a>
                         <% } %>
                     </form>
                 </div>

@@ -18,22 +18,8 @@ exports.adminPostBranches = fnCatch(async (req, res) => {
     if (id > 0) {
         await execute("UPDATE branches SET branch_name = ? WHERE id = ?", [branch_name, branch_description, id]);
     } else {
-        const { username, password } = fnCredentials();
-        const ins = await execute("INSERT INTO users (name, username, password, role) VALUES (?, ?, md5(?), 'master')", [branch_name, username, `${password}:${process.env.SECRET}`]);
-        await execute("INSERT INTO branches (branch_name, branch_description, user_id) VALUES (?, ?, ?)", [branch_name, branch_description, ins.insertId]);
-
-        message = `Please save it, it won't come back (Username: ${username}, Password: ${password})`;
+        await execute("INSERT INTO branches (branch_name, branch_description) VALUES (?, ?)", [branch_name, branch_description]);
     }
-
-    return res.redirect(`/admin/branches?success=${message}`);
-});
-
-exports.adminResetPassword = fnCatch(async (req, res) => {
-    const { username, password } = fnCredentials();
-    const slt = await execute("SELECT * FROM branches WHERE id = ?", [req.query.id], 1);
-    await execute("UPDATE users SET username = ?, password = md5(?) WHERE id = ? and role = 'master'", [username, `${password}:${process.env.SECRET}`, slt.user_id]);
-
-    message = `Iltimos, saqlang, u qaytib kelmaydi (Taxallus: ${username}, Parol: ${password})`;
 
     return res.redirect(`/admin/branches?success=${message}`);
 });
@@ -51,15 +37,23 @@ exports.adminGetEmployees = fnCatch(async (req, res) => {
 
 exports.adminPostEmployees = fnCatch(async (req, res) => {
     const { branch_id } = req.params;
-    const { id, full_name, phone_num } = req.body;
+    const { id, full_name, phone_no, profession, role } = req.body;
+    let message = "";
+
+    console.log(id, full_name, phone_no, profession, role)
 
     if (id > 0) {
-        await execute("UPDATE employees SET full_name = ?, phone_num = ? WHERE id = ?", [full_name, phone_num, id]);
+        await execute("UPDATE employees SET full_name=?, phone_no=?, profession=?, role=? WHERE id = ?", [branch_id, full_name, phone_no, profession, role, id]);
     } else {
-        await execute("INSERT INTO employees (full_name, phone_num, branch_id) VALUES (?, ?, ?)", [full_name, phone_num, branch_id]);
+        const { username, password } = fnCredentials();
+        const ins = await execute("INSERT INTO users (username, password) VALUES (?, md5(?))", [username, `${password}:${process.env.SECRET}`]);
+
+        message = `Iltimos, saqlang, u qaytib kelmaydi (Taxallus: ${username}, Parol: ${password})`;
+
+        await execute("INSERT INTO employees (user_id, branch_id, full_name, phone_no, profession, role) VALUES (?, ?, ?, ?, ?, ?)", [ins.insertId, branch_id, full_name, phone_no, profession, role]);
     }
 
-    return res.redirect(`/admin/${branch_id}/employees`);
+    return res.redirect(`/admin/${branch_id}/employees?success=${message}`);
 });
 
 exports.adminDeleteEmployees = fnCatch(async (req, res) => {

@@ -8,16 +8,11 @@ exports.authPage = fnCatch(async (req, res, next) => {
 exports.authLogin = fnCatch(async (req, res, next) => {
     let { username, password } = req.body;
 
-    let user = await execute("SELECT * FROM users WHERE username = ? and password = md5(?)", [username, `${password}:${process.env.SECRET}`], 1);
+    let user = await execute("SELECT * FROM vw_users WHERE username = ? and password = md5(?)", [username, `${password}:${process.env.SECRET}`], 1);
     if (!user) return res.redirect(`/?error=You have entered a wrong username or password!`);
 
     req.session.auth = true;
     req.session.user = user;
-
-    if (user.role == "master") {
-        let branch = await execute("SELECT * FROM branches WHERE user_id = ?", [user.id], 1);
-        req.session.branch = branch;
-    }
 
     res.redirect(`/${user?.role}`);
 });
@@ -35,4 +30,4 @@ exports.checkAuth = (role) => {
         }
         throw new Error("Authentication error: admin");
     });
-} 
+}

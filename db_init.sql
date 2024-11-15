@@ -1,51 +1,67 @@
--- Drop and create the database
-DROP DATABASE IF EXISTS urbantech_2024;
-CREATE DATABASE urbantech_2024;
-USE urbantech_2024;
+-- drop and create the database
+drop database if exists urbantech_2024;
+create database urbantech_2024;
+use urbantech_2024;
 
--- Drop and create the 'users' table
-DROP TABLE IF EXISTS users;
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(200),
-    username VARCHAR(200) UNIQUE,
-    password VARCHAR(200),
-    phone VARCHAR(200),
-    role ENUM('admin', 'user', 'manager', 'employee') DEFAULT 'user',
-    active BOOLEAN DEFAULT TRUE,
-    updated_dt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    created_dt DATETIME DEFAULT CURRENT_TIMESTAMP
+#################### users ####################
+
+-- drop and create the 'users' table
+drop table if exists users;
+create table users (
+    id int auto_increment primary key,
+    username varchar(200) unique,
+    password varchar(200),
+    active boolean default true,
+    updated_dt datetime default current_timestamp on update current_timestamp,
+    created_dt datetime default current_timestamp
 );
 
--- Insert initial data into 'users' table
-INSERT INTO users (name, username, password, role)
-VALUES
-    ('admin', 'admin', MD5('admin:L4igwSjdGa'), 'admin'),
-    ('manager#1', 'manager#1', MD5('manager:L4igwSjdGa'), 'manager'),
-    ('manager#2', 'manager#2', MD5('manager:L4igwSjdGa'), 'manager');
+-- insert initial data into 'users' table
+insert into users (username, password)
+values ('admin', md5('admin:L4igwSjdGa')),
+       ('manager#1', md5('manager:L4igwSjdGa')),
+       ('manager#2', md5('manager:L4igwSjdGa'));
 
--- Drop and create the 'branches' table
-DROP TABLE IF EXISTS branches;
-CREATE TABLE branches (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    branch_name VARCHAR(200),
-    branch_description VARCHAR(200),
-    active BOOLEAN DEFAULT TRUE,
-    updated_dt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    created_dt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_user_branch FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+-- drop and create the 'branches' table
+drop table if exists branches;
+create table branches (
+    id int auto_increment primary key,
+    branch_name varchar(200),
+    branch_description varchar(200),
+    active boolean default true,
+    updated_dt datetime default current_timestamp on update current_timestamp,
+    created_dt datetime default current_timestamp
 );
 
--- Drop and create the 'employees' table
-DROP TABLE IF EXISTS employees;
-CREATE TABLE employees (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    branch_id INT,
-    user_id INT,
-    active BOOLEAN DEFAULT TRUE,
-    updated_dt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    created_dt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_branch_employee FOREIGN KEY (branch_id) REFERENCES branches(id) ON DELETE CASCADE,
-    CONSTRAINT fk_user_employee FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+insert into branches (branch_name, branch_description)
+values ('main department', 'root');
+
+-- drop and create the 'employees' table
+drop table if exists employees;
+create table employees (
+    id int auto_increment primary key,
+    user_id int,
+    branch_id int,
+    full_name varchar(200),
+    phone_no varchar(100),
+    profession varchar(100),
+    role enum('admin','manager', 'employee') default 'employee',
+    active boolean default true,
+    updated_dt datetime default current_timestamp on update current_timestamp,
+    created_dt datetime default current_timestamp,
+    constraint fk_branch_employee foreign key (branch_id) references branches(id) on delete cascade,
+    constraint fk_user_branch foreign key (user_id) references users(id) on delete cascade
 );
+
+-- insert initial data into 'employees' table
+insert into employees (user_id, branch_id, full_name, phone_no, profession, role)
+values (1, 1, 'admin', '0001', 'management', 'admin');
+
+#################### view ####################
+create view vw_users as (
+    select u.*, e.role, e.branch_id, e.id as employee_id
+    from users u
+    inner join employees e on u.id = e.user_id
+);
+
+select * from vw_users;

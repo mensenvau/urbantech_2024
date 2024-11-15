@@ -5,12 +5,7 @@ const {
     adminDeleteBranches,
     adminGetEmployees,
     adminPostEmployees,
-    adminDeleteEmployees,
-    adminGetCalendar,
-    adminGetCalendarByDay,
-    adminLogBranches,
-    adminLogEmployees,
-    adminResetPassword,
+    adminDeleteEmployees
 } = require("../controllers/admin");
 const { checkAuth } = require("../controllers/auth");
 
@@ -21,7 +16,6 @@ module.exports = function (app) {
 
     app.get("/admin/branches", adminGetBranches); // get
     app.get("/admin/branches/del", adminDeleteBranches); // delete
-    app.get("/admin/branches/reset", adminResetPassword); // reset
     app.post("/admin/branches", adminPostBranches); // edit and new
 
     app.get("/admin/:branch_id/employees", adminGetEmployees); // get
