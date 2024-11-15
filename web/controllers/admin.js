@@ -2,8 +2,8 @@ const { execute } = require("uzdev/mysql");
 const { fnCredentials, fnCatch } = require("../function/main");
 
 exports.adminHome = fnCatch(async (req, res) => {
-    const arr = await execute("SELECT * FROM vw_statistics");
-    return res.render("admin/main", { data: req.data, page: "home", arr });
+    // const arr = await execute("SELECT * FROM vw_statistics");
+    return res.render("admin/main", { data: req.data, page: "home" });
 });
 
 exports.adminGetBranches = fnCatch(async (req, res) => {

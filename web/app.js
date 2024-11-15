@@ -1,5 +1,5 @@
 // load environment variables
-require("dotenv").config("../.env");
+require("dotenv").config({ path: "../.env" });
 
 const express = require("express");
 const app = express();

@@ -15,7 +15,7 @@ create table users (
     unique (username)
 );
 
-insert into users (name, username, password, role) value ('admin', 'admin', md5('z4g^LdVr8s&c:A9fG3kL1mNpQrS7tUvWzYx8J6oVb'), 'admin');
-insert into users (name, username, password, role) value ('manager#1', 'manager#1', md5('KA5HtF=s2TZC:A9fG3kL1mNpQrS7tUvWzYx8J6oVb'), 'manager');
-insert into users (name, username, password, role) value ('manager#2', 'manager#2', md5('E^rm#QEVcu6T:A9fG3kL1mNpQrS7tUvWzYx8J6oVb'), 'manager');
+insert into users (name, username, password, role) value ('admin', 'admin', md5('admin:L4igwSjdGa'), 'admin');
+insert into users (name, username, password, role) value ('manager#1', 'manager#1', md5('manager:L4igwSjdGa'), 'manager');
+insert into users (name, username, password, role) value ('manager#2', 'manager#2', md5('manager:L4igwSjdGa'), 'manager');
 

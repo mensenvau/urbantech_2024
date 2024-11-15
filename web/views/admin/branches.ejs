@@ -22,11 +22,17 @@
                                     <td><%= arr[i].branch_name %></td>
                                     <td><%= arr[i].phone_num %></td>
                                     <td>
-                                        <a href="/admin/branches?edit=<%= arr[i].id %>"><i class="lni lni-pencil-alt"></i></a>
+                                        <a href="/admin/branches?edit=<%= arr[i].id %>">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
                                         <div class="vr"></div>
-                                        <a href="/admin/<%= arr[i].id %>/employees"><i class="lni lni-line-spacing"></i></a>
+                                        <a href="/admin/<%= arr[i].id %>/employees">
+                                            <i class="fas fa-users"></i>
+                                        </a>
                                         <div class="vr"></div>
-                                        <a href="/admin/<%= arr[i].id %>/calendar"><i class="lni lni-calendar"></i></a>
+                                        <a href="/admin/<%= arr[i].id %>/calendar">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </a>
                                     </td>
                                 </tr>
                                 <% } %>
