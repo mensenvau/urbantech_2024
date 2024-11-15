@@ -9,7 +9,7 @@ exports.authLogin = fnCatch(async (req, res, next) => {
     let { username, password } = req.body;
 
     let user = await execute("SELECT * FROM users WHERE username = ? and password = md5(?)", [username, `${password}:${process.env.SECRET}`], 1);
-    if (!user) return res.redirect(`/?error=Taxallus yoki parol xato kirtingiz!`);
+    if (!user) return res.redirect(`/?error=You have entered a wrong username or password!`);
 
     req.session.auth = true;
     req.session.user = user;
@@ -24,27 +24,15 @@ exports.authLogin = fnCatch(async (req, res, next) => {
 
 exports.authLogout = fnCatch(async (req, res, next) => {
     req.session.destroy();
-    res.redirect("/?success=Siz tizimdan chiqdingiz!");
+    res.redirect("/?success=You are logged out!");
 });
 
-exports.authIsAdmin = fnCatch(async (req, res, next) => {
-    if (req.session?.auth === true && req.session.user?.role === "admin") {
-        return next();
-    }
-    throw new Error("Autentifikatsiya xatosi(admin)!");
-});
 
-exports.authIsAssistant = fnCatch(async (req, res, next) => {
-    if (req.session?.auth === true && req.session.user?.role === "assistant") {
-        return next();
-    }
-    throw new Error("Autentifikatsiya xatosi (admin)!");
-});
-
-exports.authIsMaster = fnCatch(async (req, res, next) => {
-    if (req.session?.auth === true && req.session.user?.role === "master") {
-        req.branch_id = req.session.branch?.id || 0;
-        return next();
-    }
-    throw new Error("Autentifikatsiya xatosi (master)!");
-});
+exports.checkAuth = (role) => {
+    return fnCatch(async (req, res, next) => {
+        if (req.session?.auth === true && req.session.user?.role === role) {
+            return next();
+        }
+        throw new Error("Authentication error: admin");
+    });
+} 

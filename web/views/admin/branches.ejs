@@ -10,9 +10,9 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th>Nomi</th>
-                                    <th>Telefon</th>
-                                    <th>Harakatlar</th>
+                                    <th>Department</th>
+                                    <th>Department Desc</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,16 +47,16 @@
         <div class="col-md-4 mb-3">
             <div class="card">
                 <div class="card-body px-1">
-                    <form method="post">
+                    <form method="post" class="px-2">
                         <input type="hidden" name="id" value="<%= one?.id || 0 %>" />
                         <div class="mb-3">
-                            <label>Tarmoq nomi</label>
-                            <input type="text" class="form-control" name="branch_name" placeholder="xyz team" value="<%= one?.branch_name %>" required />
+                            <label>Department name</label>
+                            <input type="text" class="form-control" name="branch_name" placeholder="ex: XYZ Team" value="<%= one?.branch_name %>" required />
                         </div>
 
                         <div class="mb-3">
-                            <label>Telefon No</label>
-                            <input type="text" class="form-control" name="phone_num" placeholder="+998-__-___-__-__" value="<%= one?.phone_num %>" />
+                            <label>Department desc</label>
+                            <input type="text" class="form-control" name="branch_description" placeholder="ex: IT department" value="<%= one?.phone_num %>" />
                         </div>
 
                         <button type="submit" class="btn btn-primary">Saqlash</button>

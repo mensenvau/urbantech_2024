@@ -1,5 +1,5 @@
 <div class="mb-3">
-    <h4>Tarmoq paneli</h4>
+    <h4>Department</h4>
 
     <div class="row">
         <div class="col-md-8 mb-3">
@@ -10,9 +10,9 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th>Nomi</th>
-                                    <th>Telefon</th>
-                                    <th>Harakatlar</th>
+                                    <th>Department</th>
+                                    <th>Department desc</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -44,7 +44,7 @@
                     <form method="post">
                         <input type="hidden" name="id" value="<%= one?.id || 0 %>" />
                         <div class="mb-3">
-                            <label>Tarmoq nomi</label>
+                            <label>Bo nomi</label>
                             <input type="text" class="form-control" name="branch_name" placeholder="xyz team" value="<%= one?.branch_name %>" required />
                         </div>
 

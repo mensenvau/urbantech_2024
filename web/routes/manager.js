@@ -1,37 +1,37 @@
 const {
-    assistantHome,
-    assistantGetBranches,
-    assistantPostBranches,
-    assistantDeleteBranches,
-    assistantGetEmployees,
-    assistantPostEmployees,
-    assistantDeleteEmployees,
-    assistantGetCalendar,
-    assistantGetCalendarByDay,
-    assistantLogBranches,
-    assistantLogEmployees,
-    assistantResetPassword,
+    masterHome,
+    masterGetBranches,
+    masterPostBranches,
+    masterDeleteBranches,
+    masterGetEmployees,
+    masterPostEmployees,
+    masterDeleteEmployees,
+    masterGetCalendar,
+    masterGetCalendarByDay,
+    masterLogBranches,
+    masterLogEmployees,
+    masterResetPassword,
 } = require("../controllers/manager");
-const { authIsAssistant } = require("../controllers/auth");
+const { checkAuth } = require("../controllers/auth");
 
 module.exports = function (app) {
-    app.use("/assistant", authIsAssistant); // check
+    app.use("/admin", checkAuth("master"));
 
-    app.get("/assistant", assistantHome);
+    app.get("/master", masterHome);
 
-    app.get("/assistant/branches", assistantGetBranches); // get
-    app.get("/assistant/branches/del", assistantDeleteBranches); // delete
-    app.get("/assistant/branches/reset", assistantResetPassword); // reset
+    app.get("/master/branches", masterGetBranches); // get
+    app.get("/master/branches/del", masterDeleteBranches); // delete
+    app.get("/master/branches/reset", masterResetPassword); // reset
 
-    app.post("/assistant/branches", assistantPostBranches); // edit and new
+    app.post("/master/branches", masterPostBranches); // edit and new
 
-    app.get("/assistant/:branch_id/employees", assistantGetEmployees); // get
-    app.get("/assistant/:branch_id/employees/del", assistantDeleteEmployees); // delete
-    app.post("/assistant/:branch_id/employees", assistantPostEmployees); // edit and new
+    app.get("/master/:branch_id/employees", masterGetEmployees); // get
+    app.get("/master/:branch_id/employees/del", masterDeleteEmployees); // delete
+    app.post("/master/:branch_id/employees", masterPostEmployees); // edit and new
 
-    app.get("/assistant/:branch_id/calendar", assistantGetCalendar); // get
-    app.get("/assistant/:branch_id/calendar/day", assistantGetCalendarByDay); // get
+    app.get("/master/:branch_id/calendar", masterGetCalendar); // get
+    app.get("/master/:branch_id/calendar/day", masterGetCalendarByDay); // get
 
-    app.get("/assistant/log_branches", assistantLogBranches); // get
-    app.get("/assistant/log_employees", assistantLogEmployees); // get
+    app.get("/master/log_branches", masterLogBranches); // get
+    app.get("/master/log_employees", masterLogEmployees); // get
 };

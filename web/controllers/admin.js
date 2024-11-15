@@ -12,17 +12,17 @@ exports.adminGetBranches = fnCatch(async (req, res) => {
 });
 
 exports.adminPostBranches = fnCatch(async (req, res) => {
-    const { id, branch_name, phone_num } = req.body;
+    const { id, branch_name, branch_description } = req.body;
     let message = "";
 
     if (id > 0) {
-        await execute("UPDATE branches SET branch_name = ?, phone_num = ? WHERE id = ?", [branch_name, phone_num, id]);
+        await execute("UPDATE branches SET branch_name = ? WHERE id = ?", [branch_name, branch_description, id]);
     } else {
         const { username, password } = fnCredentials();
         const ins = await execute("INSERT INTO users (name, username, password, role) VALUES (?, ?, md5(?), 'master')", [branch_name, username, `${password}:${process.env.SECRET}`]);
-        await execute("INSERT INTO branches (branch_name, phone_num, user_id) VALUES (?, ?, ?)", [branch_name, phone_num, ins.insertId]);
+        await execute("INSERT INTO branches (branch_name, branch_description, user_id) VALUES (?, ?, ?)", [branch_name, branch_description, ins.insertId]);
 
-        message = `Iltimos, saqlang, u qaytib kelmaydi (Taxallus: ${username}, Parol: ${password})`;
+        message = `Please save it, it won't come back (Username: ${username}, Password: ${password})`;
     }
 
     return res.redirect(`/admin/branches?success=${message}`);
