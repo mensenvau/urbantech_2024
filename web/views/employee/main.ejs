@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("../basic/head.ejs") %>
+    </head>
+    <body>
+        <div class="d-flex my-header">
+            <%- include("./navbar") %>
+
+            <div class="main">
+                <%- include("../basic/topbar") %>
+                <main class="wrapper px-1 py-3">
+                    <div class="container-fluid">
+                        <%- include("../basic/toast.ejs") %>
+                        <span></span>
+                        <%- include(page, { page }) %>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <%- include("../basic/footer.ejs") %>
+    </body>
+</html>

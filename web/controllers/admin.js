@@ -40,16 +40,13 @@ exports.adminPostEmployees = fnCatch(async (req, res) => {
     const { id, full_name, phone_no, profession, role } = req.body;
     let message = "";
 
-    console.log(id, full_name, phone_no, profession, role)
-
     if (id > 0) {
-        await execute("UPDATE employees SET full_name=?, phone_no=?, profession=?, role=? WHERE id = ?", [branch_id, full_name, phone_no, profession, role, id]);
+        await execute("UPDATE employees SET full_name=?, phone_no=?, profession=?, role=? WHERE id = ?", [full_name, phone_no, profession, role, id]);
     } else {
         const { username, password } = fnCredentials();
         const ins = await execute("INSERT INTO users (username, password) VALUES (?, md5(?))", [username, `${password}:${process.env.SECRET}`]);
 
-        message = `Iltimos, saqlang, u qaytib kelmaydi (Taxallus: ${username}, Parol: ${password})`;
-
+        message = `Please save, it will not return (Username: ${username}, Password: ${password})`;
         await execute("INSERT INTO employees (user_id, branch_id, full_name, phone_no, profession, role) VALUES (?, ?, ?, ?, ?, ?)", [ins.insertId, branch_id, full_name, phone_no, profession, role]);
     }
 
@@ -62,31 +59,24 @@ exports.adminDeleteEmployees = fnCatch(async (req, res) => {
     return res.redirect(`/admin/${branch_id}/employees`);
 });
 
-exports.adminGetCalendar = fnCatch(async (req, res) => {
+exports.adminResetPassword = fnCatch(async (req, res) => {
     const { branch_id } = req.params;
-    return res.render("admin/main", { data: req.data, page: "calendar", branch_id });
+    const { user_id } = req.query;
+    const { username, password } = fnCredentials();
+    await execute("UPDATE users SET username = ?, password = md5(?) WHERE id = ?", [username, `${password}:${process.env.SECRET}`, user_id]);
+
+    message = `Please save, it will not return (Username: ${username}, Password: ${password})`;
+    return res.redirect(`/admin/${branch_id}/employees?success=${message}`);
 });
 
-exports.adminGetCalendarByDay = fnCatch(async (req, res) => {
-    const { branch_id } = req.params;
-    const data = await execute("SELECT * FROM log_branches WHERE branch_id = ? and active = true and cast(? as date) = cast(created_dt as date)", [branch_id, new Date(req.query.date)], 1);
-    return res.json(data);
-});
-
-exports.adminLogBranches = fnCatch(async (req, res) => {
+exports.adminListEmployees = fnCatch(async (req, res) => {
     const curr = req.query.page || 0;
-    const [arr, cnt] = await Promise.all([execute("SELECT * FROM log_branches ORDER BY created_dt DESC, id DESC LIMIT ?, 10", [curr * 10, 10]), execute("SELECT count(*) as count FROM log_branches", [], 1)]);
+    const [arr, cnt] = await Promise.all([execute("SELECT * FROM employees ORDER BY created_dt DESC, id DESC LIMIT ?, 10", [curr * 10, 10]), execute("SELECT count(*) as count FROM employees", [], 1)]);
     const count = Math.ceil(cnt?.count / 10);
-    return res.render("admin/main", { data: req.data, page: "log_branches", arr, count, curr });
-});
-
-exports.adminLogEmployees = fnCatch(async (req, res) => {
-    const curr = req.query.page || 0;
-    const [arr, cnt] = await Promise.all([execute("SELECT * FROM vw_log_employees ORDER BY created_dt DESC, id DESC LIMIT ?, 10", [curr * 10, 10]), execute("SELECT count(*) as count FROM vw_log_employees", [], 1)]);
-    const count = Math.ceil(cnt?.count / 10);
-    return res.render("admin/main", { data: req.data, page: "log_employees", arr, count, curr });
+    return res.render("admin/main", { data: req.data, page: "staff", arr, count, curr });
 });
 
 exports.adminWait = fnCatch(async (req, res) => {
     res.render("admin/main", { data: req.data, page: "home", arr: [] });
 });
+

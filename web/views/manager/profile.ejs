@@ -1,0 +1,96 @@
+<div class="mb-3">
+    <h4>Profile information</h4>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <!-- Branch Information -->
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Branch Information</h5>
+                    <div class="mb-3">
+                        <label class="form-label">Branch Name</label>
+                        <input type="text" class="form-control" value="<%= branch.branch_name %>" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <input type="text" class="form-control" value="<%= branch.branch_description %>" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Status</label>
+                        <input type="text" class="form-control" value="<%= branch.active?'Active':'Deleted' %>" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Created Date</label>
+                        <input type="text" class="form-control" value="<%= branch.created_dt %>" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Updated Date</label>
+                        <input type="text" class="form-control" value="<%= branch.updated_dt %>" disabled />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Information -->
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">User Information</h5>
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" value="<%= user.username %>" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Status</label>
+                        <input type="text" class="form-control" value="<%= user.active?'Active':'Deleted' %>" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Created Date</label>
+                        <input type="text" class="form-control" value="<%= user.created_dt %>" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Updated Date</label>
+                        <input type="text" class="form-control" value="<%= user.updated_dt %>" disabled />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Employee Information -->
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Employee Information</h5>
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" value="<%= employee.full_name %>" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Profession</label>
+                        <input type="text" class="form-control" value="<%= employee.profession %>" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Role</label>
+                        <input type="text" class="form-control" value="<%= employee.role %>" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" value="<%= employee.phone_no %>" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Status</label>
+                        <input type="text" class="form-control" value="<%= employee.active?'Active':'Deleted' %>" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Created Date</label>
+                        <input type="text" class="form-control" value="<%= employee.created_dt %>" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Updated Date</label>
+                        <input type="text" class="form-control" value="<%= employee.updated_dt %>" disabled />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

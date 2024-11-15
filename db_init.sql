@@ -18,9 +18,9 @@ create table users (
 
 -- insert initial data into 'users' table
 insert into users (username, password)
-values ('admin', md5('admin:L4igwSjdGa')),
-       ('manager#1', md5('manager:L4igwSjdGa')),
-       ('manager#2', md5('manager:L4igwSjdGa'));
+values ('admin', md5('admin:l4igwsjdga')),
+       ('manager#1', md5('manager:l4igwsjdga')),
+       ('manager#2', md5('manager:l4igwsjdga'));
 
 -- drop and create the 'branches' table
 drop table if exists branches;
@@ -57,6 +57,23 @@ create table employees (
 insert into employees (user_id, branch_id, full_name, phone_no, profession, role)
 values (1, 1, 'admin', '0001', 'management', 'admin');
 
+-- drop and create the 'timesheets' table
+drop table if exists timesheets;
+create table timesheets (
+    id int auto_increment primary key,
+    employee_id int not null,
+    date_worked date not null,
+    hours_worked decimal(5,2) not null,
+    start_datetime datetime not null,
+    end_datetime datetime not null,
+    task_description varchar(500),
+    approved boolean default false,
+    active boolean default true,
+    updated_dt datetime default current_timestamp on update current_timestamp,
+    created_dt datetime default current_timestamp,
+    constraint fk_timesheet_employee foreign key (employee_id) references employees(id) on delete cascade
+);
+
 #################### view ####################
 create view vw_users as (
     select u.*, e.role, e.branch_id, e.id as employee_id
@@ -65,3 +82,6 @@ create view vw_users as (
 );
 
 select * from vw_users;
+
+
+#################### proc ####################

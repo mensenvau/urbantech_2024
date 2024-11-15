@@ -14,7 +14,7 @@ exports.authLogin = fnCatch(async (req, res, next) => {
     req.session.auth = true;
     req.session.user = user;
 
-    res.redirect(`/${user?.role}`);
+    return res.redirect(`/${user?.role}`);
 });
 
 exports.authLogout = fnCatch(async (req, res, next) => {
@@ -22,10 +22,10 @@ exports.authLogout = fnCatch(async (req, res, next) => {
     res.redirect("/?success=You are logged out!");
 });
 
-
 exports.checkAuth = (role) => {
     return fnCatch(async (req, res, next) => {
         if (req.session?.auth === true && req.session.user?.role === role) {
+            req.user = req.session.user
             return next();
         }
         throw new Error("Authentication error: admin");

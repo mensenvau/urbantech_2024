@@ -7,26 +7,28 @@
             </span>
         </a>
     </div>
+
     <!-- Sidebar Navigation -->
     <ul class="sidebar-nav p-0">
         <li class="sidebar-header">Main Pages</li>
         <li class="sidebar-item">
-            <a href="/admin" class="sidebar-link <%- page=='home'?'active':'' %>">
+            <a href="/employee" class="sidebar-link <%- page=='home'?'active':'' %>">
                 <i class="fas fa-home"></i>
                 <span>Home</span>
             </a>
         </li>
+
+        <li class="sidebar-header">Settings</li>
         <li class="sidebar-item">
-            <a href="/admin/branches" class="sidebar-link <%- page=='branches'?'active':'' %>">
-                <i class="fas fa-sitemap"></i>
-                <span>Branches</span>
+            <a href="/employee/profile" class="sidebar-link <%- page=='log_branches'?'active':'' %>">
+                <i class="fa-solid fa-user"></i>
+                <span>Profile</span>
             </a>
         </li>
-        <li class="sidebar-header">System</li>
         <li class="sidebar-item">
-            <a href="/admin/staff" class="sidebar-link <%- page=='employees'?'active':'' %>">
-                <i class="fas fa-users"></i>
-                <span>Employee List</span>
+            <a href="/employee/salary_history" class="sidebar-link <%- page=='log_employees'?'active':'' %>">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span>Salary History</span>
             </a>
         </li>
     </ul>

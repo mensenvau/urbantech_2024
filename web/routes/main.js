@@ -12,5 +12,6 @@ app.use((req, res, next) => {
 require("./auth.js")(app);
 require("./admin.js")(app);
 require("./manager.js")(app);
+require("./employee.js")(app);
 
 module.exports = app;

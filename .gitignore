@@ -9,6 +9,8 @@ sitemap*.xml
 .venv
 .env
 
+session
+
 /cache
 /node_modules
 /td

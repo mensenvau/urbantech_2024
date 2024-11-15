@@ -7,32 +7,42 @@
             </span>
         </a>
     </div>
+
     <!-- Sidebar Navigation -->
     <ul class="sidebar-nav p-0">
         <li class="sidebar-header">Main Pages</li>
         <li class="sidebar-item">
-            <a href="/assistant" class="sidebar-link <%- page=='home'?'active':'' %>">
+            <a href="/manager" class="sidebar-link <%- page=='home'?'active':'' %>">
                 <i class="fas fa-home"></i>
                 <span>Home</span>
             </a>
         </li>
+
         <li class="sidebar-item">
-            <a href="/assistant/branches" class="sidebar-link <%- page=='branches'?'active':'' %>">
-                <i class="fas fa-sitemap"></i>
-                <span>Branches</span>
-            </a>
-        </li>
-        <li class="sidebar-header">Logs</li>
-        <li class="sidebar-item">
-            <a href="/assistant/log_branches" class="sidebar-link <%- page=='log_branches'?'active':'' %>">
-                <i class="fas fa-book"></i>
-                <span>Branch Logs</span>
-            </a>
-        </li>
-        <li class="sidebar-item">
-            <a href="/assistant/log_employees" class="sidebar-link <%- page=='log_employees'?'active':'' %>">
+            <a href="/manager/employees" class="sidebar-link <%- page=='log_employees'?'active':'' %>">
                 <i class="fas fa-users"></i>
-                <span>Employee Logs</span>
+                <span>Employees</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item">
+            <a href="/manager/timesheets" class="sidebar-link <%- page=='log_employees'?'active':'' %>">
+                <i class="fa fa-clock-o"></i>
+                <span>Timesheets</span>
+            </a>
+        </li>
+
+        <li class="sidebar-header">Settings</li>
+        <li class="sidebar-item">
+            <a href="/manager/profile" class="sidebar-link <%- page=='log_branches'?'active':'' %>">
+                <i class="fa-solid fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="/manager/salary_history" class="sidebar-link <%- page=='log_employees'?'active':'' %>">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span>Salary History</span>
             </a>
         </li>
     </ul>
