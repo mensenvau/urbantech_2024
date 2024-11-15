@@ -117,6 +117,22 @@ a.sidebar-link:hover {
     transition: all .2s ease-out;
 }
 
+.color-reject {
+    color: #FF0000;
+}
+
+.color-approve {
+    color: #008000;
+}
+
+.color-wait {
+    color: #FFA500;
+}
+
+.color-sent {
+    color: #0000FF;
+}
+
 /* Screen size less than 768px */
 @media (max-width:768px) {
     .sidebar-toggle {

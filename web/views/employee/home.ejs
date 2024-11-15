@@ -3,7 +3,7 @@
 
     <div class="row row-cols-1 row-cols-md-4 g-4">
         <div class="col-lg-6 mb-3">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm h-100">
                 <div class="card-header d-flex justify-content-between">
                     <span>Tracking</span>
                 </div>
@@ -13,7 +13,7 @@
                             <i class="fa-solid fa-angles-right text-success me-2"></i>
                             <h6 class="mb-0">Enter</h6>
                         </div>
-                        <span><%= arr.start_time %></span>
+                        <span><%= timesheet.start_time %></span>
                     </div>
                     <hr />
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -21,35 +21,40 @@
                             <i class="fa-solid fa-angles-left text-danger me-2"></i>
                             <h6 class="mb-0">Exit</h6>
                         </div>
-                        <span><%= arr.ent_time %></span>
+                        <span><%= timesheet.end_time %></span>
                     </div>
+                </div>
 
-                    <% if(arr.start_time == null) { %>
+                <div class="card-footer mt-auto bg-light">
+                    <% if(timesheet.start_time == null) { %>
                     <a class="btn btn-primary w-100" href="/employee/enter">Enter</a>
-                    <% } else { %>
+                    <% } else if(timesheet.end_time == null) { %>
                     <a class="btn btn-primary w-100" href="/employee/exit">Exit</a>
+                    <% } else { %>
+                    <button class="btn btn-primary w-100" disabled>You worked <%= timesheet.hours_worked %> hours</button>
                     <% } %>
                 </div>
             </div>
         </div>
 
         <div class="col-lg-6 mb-3">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm h-100">
                 <div class="card-header d-flex justify-content-between">
                     <span>Requests</span>
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Vacation
-                            <span class="badge bg-secondary rounded-pill">Reject</span>
+                        <% for(var i=0; i < requests.length; i++) { %>
+                        <li class="list-group-item d-flex justify-content-between align-items-center mb-auto">
+                            <%= requests[i].type %>
+                            <span class="badge color-<%= requests[i].status %> rounded-pill"><%= requests[i].status %></span>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Workday transfer
-                            <span class="badge bg-secondary rounded-pill">Approve</span>
-                        </li>
+                        <% } %>
                     </ul>
-                    <button class="btn btn-primary w-100 mt-2">Open All</button>
+                </div>
+
+                <div class="card-footer mt-auto bg-light">
+                    <a class="btn btn-primary w-100" href="/employee/requests">Open All</a>
                 </div>
             </div>
         </div>

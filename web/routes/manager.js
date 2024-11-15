@@ -1,11 +1,7 @@
 const {
-    managerHome,
-    managerGetEmployees,
-    managerPostEmployees,
-    managerDeleteEmployees,
-    managerGetProfile,
-    adminResetPassword,
-    managerTraining
+    managerHome, managerGetEmployees, managerPostEmployees,
+    managerDeleteEmployees, managerGetProfile,
+    adminResetPassword, managerTraining
 } = require("../controllers/manager");
 const { checkAuth } = require("../controllers/auth");
 
@@ -21,6 +17,4 @@ module.exports = function (app) {
 
     app.get("/manager/profile", managerGetProfile); // get
     app.get("/manager/training", managerTraining); // get
-
-
 };

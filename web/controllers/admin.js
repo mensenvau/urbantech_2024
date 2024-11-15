@@ -79,4 +79,3 @@ exports.adminListEmployees = fnCatch(async (req, res) => {
 exports.adminWait = fnCatch(async (req, res) => {
     res.render("admin/main", { data: req.data, page: "home", arr: [] });
 });
-

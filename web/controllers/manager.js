@@ -18,13 +18,13 @@ exports.managerPostEmployees = fnCatch(async (req, res) => {
     let message = "";
 
     if (id > 0) {
-        await execute("UPDATE employees SET full_name=?, phone_no=?, profession=?, role=? WHERE branch_id = ? and id = ?", [full_name, phone_no, profession, 'employee', branch_id, id]);
+        await execute("UPDATE employees SET full_name=?, phone_no=?, profession=?, role=? WHERE branch_id = ? and id = ?", [full_name, phone_no, profession, "employee", branch_id, id]);
     } else {
         const { username, password } = fnCredentials();
         const ins = await execute("INSERT INTO users (username, password) VALUES (?, md5(?))", [username, `${password}:${process.env.SECRET}`]);
 
         message = `Please save, it will not return (Username: ${username}, Password: ${password})`;
-        await execute("INSERT INTO employees (user_id, branch_id, full_name, phone_no, profession, role) VALUES (?, ?, ?, ?, ?, ?)", [ins.insertId, branch_id, full_name, phone_no, profession, 'employee']);
+        await execute("INSERT INTO employees (user_id, branch_id, full_name, phone_no, profession, role) VALUES (?, ?, ?, ?, ?, ?)", [ins.insertId, branch_id, full_name, phone_no, profession, "employee"]);
     }
 
     return res.redirect(`/manager/employees?success=${message}`);
@@ -48,11 +48,7 @@ exports.adminResetPassword = fnCatch(async (req, res) => {
 
 exports.managerGetProfile = fnCatch(async (req, res) => {
     const { employee_id, id, branch_id } = req.user;
-    let [branch, user, employee] = await Promise.all([
-        execute("SELECT * FROM branches WHERE id = ?", [branch_id], 1),
-        execute("SELECT * FROM users WHERE id = ?", [id], 1),
-        execute("SELECT * FROM employees WHERE id = ?", [employee_id], 1)
-    ]);
+    let [branch, user, employee] = await Promise.all([execute("SELECT * FROM branches WHERE id = ?", [branch_id], 1), execute("SELECT * FROM users WHERE id = ?", [id], 1), execute("SELECT * FROM employees WHERE id = ?", [employee_id], 1)]);
     res.render("manager/main", { data: req.data, page: "profile", branch, user, employee });
 });
 

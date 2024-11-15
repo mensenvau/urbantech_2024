@@ -1,13 +1,8 @@
 const {
-    adminHome,
-    adminGetBranches,
-    adminPostBranches,
-    adminDeleteBranches,
-    adminGetEmployees,
-    adminPostEmployees,
-    adminDeleteEmployees,
-    adminResetPassword,
-    adminListEmployees
+    adminHome, adminGetBranches, adminPostBranches,
+    adminDeleteBranches, adminGetEmployees,
+    adminPostEmployees, adminDeleteEmployees,
+    adminResetPassword, adminListEmployees
 } = require("../controllers/admin");
 const { checkAuth } = require("../controllers/auth");
 
@@ -26,5 +21,4 @@ module.exports = function (app) {
     app.get("/admin/:branch_id/employees/reset", adminResetPassword); // admin rest password
 
     app.get("/admin/staff", adminListEmployees); // get
-
 };
