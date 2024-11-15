@@ -76,3 +76,29 @@ Ensure the following are installed on your system:
    ```bash
    npm start
    ```
+
+## 👥 Meet the Team
+
+### Project Manager
+- **Name**: Jonibek Negmurodov
+- **Job**: Project Manager
+- **Company**: GreatSoft
+- **Experience**: 3
+
+### Software/Data Engineer
+- **Name**: [O'tkir Xo'jayev](https://github.com/mensenvau)
+- **Job**: Software/Data Engineer
+- **Company**: Infotek IT-service
+- **Experience**: 5
+
+### Software/Data Engineer
+- **Name**: [Nurmuhammad Tukhtayev](https://github.com/NurmuhammadTukhtayev)
+- **Job**: Software/Data Engineer
+- **Company**: Infotek IT-service
+- **Experience**: 4
+
+### Database Developer
+- **Name**: [Sabohat Hamroqulova](https://github.com/sabohat-dev)
+- **Job**: Database Developer
+- **Company**: Infotek IT Service
+- **Experience**: 2
