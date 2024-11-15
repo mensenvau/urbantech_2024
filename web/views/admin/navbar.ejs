@@ -1,0 +1,46 @@
+<aside id="sidebar" class="sidebar-toggle">
+    <div class="sidebar-logo">
+        <a href="#">
+            <span class="fs-5">
+                <b style="color: #25a1f4">Railwayob</b>
+                <b style="color: #f87474">Server</b>
+            </span>
+        </a>
+    </div>
+    <!-- Sidebar Navigation -->
+    <ul class="sidebar-nav p-0">
+        <li class="sidebar-header">Main Pages</li>
+        <li class="sidebar-item">
+            <a href="/admin" class="sidebar-link <%- page=='home'?'active':'' %>">
+                <i class="lni lni-user"></i>
+                <span>Bosh sahifa</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="/admin/branches" class="sidebar-link <%- page=='branches'?'active':'' %>">
+                <i class="lni lni-agenda"></i>
+                <span>Tarmoq</span>
+            </a>
+        </li>
+        <li class="sidebar-header">Logs</li>
+        <li class="sidebar-item">
+            <a href="/admin/log_branches" class="sidebar-link <%- page=='log_branches'?'active':'' %>">
+                <i class="lni lni-cog"></i>
+                <span>Tarmoq jurnali</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="/admin/log_employees" class="sidebar-link <%- page=='log_employees'?'active':'' %>">
+                <i class="lni lni-cog"></i>
+                <span>Xodimlar jurnali</span>
+            </a>
+        </li>
+    </ul>
+    <!-- Sidebar Navigation Ends -->
+    <div class="sidebar-footer">
+        <a href="/logout" class="sidebar-link">
+            <i class="lni lni-exit"></i>
+            <span>Chiqish</span>
+        </a>
+    </div>
+</aside>

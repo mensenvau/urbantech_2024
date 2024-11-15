@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("../basic/head.ejs") %>
+        <link rel="stylesheet" href="/css/login.css" />
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                    <div class="card border-0 shadow-none rounded-1 my-5">
+                        <div class="card-body px-1 p-4 p-sm-5">
+                            <h5 class="card-title text-center mb-5 fw-light fs-5">Tizimga kirish</h5>
+                            <%- include("../basic/toast.ejs") %>
+                            <form method="post">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput" name="username" placeholder="ali007" required />
+                                    <label for="floatingInput">Taxallus</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Parol" required />
+                                    <label for="floatingPassword">Parol</label>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck" />
+                                    <label class="form-check-label" for="rememberPasswordCheck">Parolni eslab qoling</label>
+                                </div>
+                                <div class="d-grid">
+                                    <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Tizimga kirish</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
