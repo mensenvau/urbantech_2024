@@ -4,7 +4,9 @@ const {
     managerGetProfile, adminResetPassword,
     managerTraining, managerLogTimesheet,
     managerTimesheetEnter, managerTimesheetExit,
-    managerGetRequests, managerStatusRequests
+    managerGetRequests, managerStatusRequests,
+    managerTimesheet,
+    managerBoard
 } = require("../controllers/manager");
 const { checkAuth } = require("../controllers/auth");
 
@@ -25,7 +27,9 @@ module.exports = function (app) {
     app.get("/manager/training", managerTraining); // get
 
     app.get("/manager/log_timesheets", managerLogTimesheet); // get
+    app.get("/manager/timesheets", managerTimesheet); // get
 
     app.get("/manager/requests", managerGetRequests); // get
     app.get("/manager/requests/status", managerStatusRequests); // get
+    app.get("/manager/board", managerBoard); // get
 };

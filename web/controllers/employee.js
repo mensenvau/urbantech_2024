@@ -65,6 +65,9 @@ exports.employeeDeleteRequests = fnCatch(async (req, res) => {
     return res.redirect(`/employee/requests`);
 });
 
+exports.employeeBoard = fnCatch(async (req, res) => {
+    res.render("employee/main", { data: req.data, page: "board" });
+});
 
 exports.employeeWait = fnCatch(async (req, res) => {
     res.render("employee/main", { data: req.data, page: "home", arr: [] });

@@ -92,6 +92,7 @@ create table requests (
 );
 
 #################### view ####################
+drop view if exists vw_users;
 create view vw_users as (
     select u.*, e.role, e.branch_id, e.id as employee_id
     from users u
@@ -99,6 +100,44 @@ create view vw_users as (
 );
 
 select * from vw_users;
+
+-- Pivot timesheet data for the last 5 days
+drop view if exists vw_timesheets;
+create view vw_timesheets as
+WITH recent_dates AS (
+    SELECT DISTINCT date_worked
+    FROM timesheets
+    WHERE date_worked >= CURDATE() - INTERVAL 5 DAY
+    ORDER BY date_worked DESC
+    LIMIT 5
+),
+pivot_data AS (
+    SELECT
+        employee_id,
+        date_worked,
+        MIN(start_time) as start_time,
+        MAX(end_time) as end_time,
+        SUM(hours_worked) AS hours_worked
+    FROM timesheets
+    WHERE date_worked >= CURDATE() - INTERVAL 5 DAY
+    GROUP BY employee_id, date_worked
+)
+SELECT
+    e.full_name,
+    e.branch_id,
+    p.employee_id,
+    MAX(CASE WHEN p.date_worked = DATE_SUB(CURDATE(), INTERVAL -4 DAY) THEN concat( p.hours_worked) ELSE 0 END) AS `day1`,
+    MAX(CASE WHEN p.date_worked = DATE_SUB(CURDATE(), INTERVAL -3 DAY) THEN concat( p.hours_worked) ELSE 0 END) AS `day2`,
+    MAX(CASE WHEN p.date_worked = DATE_SUB(CURDATE(), INTERVAL -2 DAY) THEN concat(p.hours_worked) ELSE 0 END) AS `day3`,
+    MAX(CASE WHEN p.date_worked = DATE_SUB(CURDATE(), INTERVAL -1 DAY) THEN concat( p.hours_worked) ELSE 0 END) AS `day4`,
+    MAX(CASE WHEN p.date_worked = DATE_SUB(CURDATE(), INTERVAL 0 DAY) THEN concat(p.hours_worked) ELSE 0 END) AS `day5`
+FROM pivot_data p
+left join employees e on e.id = p.employee_id
+GROUP BY e.full_name, e.branch_id, p.employee_id;
+
+
+select * from vw_timesheets ;
+
 
 
 #################### proc ####################

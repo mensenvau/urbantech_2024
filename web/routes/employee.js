@@ -1,7 +1,8 @@
 const {
     employeeHome, employeeGetProfile, employeeTraining,
     employeeTimesheetEnter, employeeTimesheetExit, employeeGetRequests,
-    employeePostRequests, employeeDeleteRequests, employeeLogTimesheet
+    employeePostRequests, employeeDeleteRequests, employeeLogTimesheet,
+    employeeBoard
 } = require("../controllers/employee");
 const { checkAuth } = require("../controllers/auth");
 
@@ -20,4 +21,6 @@ module.exports = function (app) {
     app.get("/employee/requests/del", employeeDeleteRequests); // get
 
     app.get("/employee/log_timesheets", employeeLogTimesheet); // get
+    app.get("/employee/board", employeeBoard); // get
+
 };

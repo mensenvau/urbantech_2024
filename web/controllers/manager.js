@@ -36,6 +36,12 @@ exports.managerLogTimesheet = fnCatch(async (req, res) => {
     return res.render("manager/main", { data: req.data, page: "log_timesheets", arr, count, curr });
 });
 
+exports.managerTimesheet = fnCatch(async (req, res) => {
+    const { branch_id } = req.user;
+    const arr = await execute("SELECT * FROM vw_timesheets WHERE branch_id = ? ORDER BY branch_id DESC", [branch_id]);
+    return res.render("manager/main", { data: req.data, page: "timesheets", arr });
+});
+
 exports.managerGetEmployees = fnCatch(async (req, res) => {
     const { branch_id } = req.user;
     const [arr, one] = await Promise.all([execute("SELECT * FROM employees WHERE branch_id = ? and active = true", [branch_id]), execute("SELECT * FROM employees WHERE id = ? and active = true", [req.query.edit], 1)]);
@@ -97,6 +103,10 @@ exports.managerStatusRequests = fnCatch(async (req, res) => {
     const { id, status } = req.query;
     await execute("UPDATE requests SET status = ? WHERE branch_id = ? and id = ?", [status, branch_id, id]);
     return res.redirect(`/manager/requests`);
+});
+
+exports.managerBoard = fnCatch(async (req, res) => {
+    res.render("manager/main", { data: req.data, page: "board" });
 });
 
 exports.managerWait = fnCatch(async (req, res) => {
