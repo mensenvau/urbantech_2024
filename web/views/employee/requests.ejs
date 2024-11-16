@@ -46,13 +46,8 @@
                         <div class="mb-3">
                             <label class="form-label">Type</label>
                             <select name="type" id="type" class="form-select">
-                                <% if(one?.role === 'Vacation') { %>
                                 <option value="Vacation" selected>Vacation</option>
                                 <option value="Workday transfer">Workday transfer</option>
-                                <% } else { %>
-                                <option value="Vacation">Vacation</option>
-                                <option value="Workday transfer" selected>Workday transfer</option>
-                                <% } %>
                             </select>
                         </div>
 

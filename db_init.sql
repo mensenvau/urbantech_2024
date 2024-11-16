@@ -83,7 +83,7 @@ create table requests (
     branch_id int not null,
     type varchar(100),
     comment varchar(100),
-    status enum('reject', 'approve', 'wait', 'sent') default 'sent',
+    status enum('reject', 'approve', 'wait', 'new') default 'new',
     active boolean default true,
     updated_dt datetime default current_timestamp on update current_timestamp,
     created_dt datetime default current_timestamp,

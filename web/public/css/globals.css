@@ -125,12 +125,8 @@ a.sidebar-link:hover {
     color: #008000;
 }
 
-.color-wait {
+.color-new {
     color: #FFA500;
-}
-
-.color-sent {
-    color: #0000FF;
 }
 
 /* Screen size less than 768px */

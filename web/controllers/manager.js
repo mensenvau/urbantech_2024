@@ -2,8 +2,38 @@ const { execute } = require("uzdev/mysql");
 const { fnCatch, fnCredentials } = require("../function/main");
 
 exports.managerHome = fnCatch(async (req, res) => {
-    // const arr = await execute("SELECT * FROM vw_statistics");
-    return res.render("manager/main", { data: req.data, page: "home" });
+    const { employee_id, branch_id } = req.user;
+    const [timesheet, requests] = await Promise.all([
+        execute("select * from timesheets where employee_id = ? and date_worked = current_date()", [employee_id], 1),
+        execute("select * from requests where branch_id = ? and active = true order by id desc limit 2", [branch_id])
+    ]);
+
+    if (!timesheet) {
+        await execute("insert into timesheets (employee_id, date_worked) values (?, cast(current_date() as date)) ", [employee_id], 1);
+        timesheet = await execute("select * from timesheets where employee_id = ? and date_worked = current_date()", [employee_id], 1);
+    }
+
+    return res.render("manager/main", { data: req.data, page: "home", timesheet, requests });
+});
+
+exports.managerTimesheetEnter = fnCatch(async (req, res) => {
+    const { employee_id } = req.user;
+    await execute("update timesheets set start_time = current_time() where employee_id = ? and date_worked = current_date()", [employee_id], 1);
+    return res.redirect(`/manager`);
+});
+
+exports.managerTimesheetExit = fnCatch(async (req, res) => {
+    const { employee_id } = req.user;
+    await execute("update timesheets set end_time = current_time(), hours_worked = LEAST(GREATEST(TIMESTAMPDIFF(SECOND, start_time, CURRENT_TIME()) / 3600, 0), 8) where employee_id = ? and date_worked = current_date()", [employee_id], 1);
+    return res.redirect(`/manager`);
+});
+
+exports.managerLogTimesheet = fnCatch(async (req, res) => {
+    const { employee_id } = req.user;
+    const curr = req.query.page || 0;
+    const [arr, cnt] = await Promise.all([execute("SELECT * FROM timesheets WHERE employee_id = ? ORDER BY created_dt DESC, id DESC LIMIT ?, 10", [employee_id, curr * 10, 10]), execute("SELECT count(*) as count FROM timesheets WHERE employee_id = ?", [employee_id], 1)]);
+    const count = Math.ceil(cnt?.count / 10);
+    return res.render("manager/main", { data: req.data, page: "log_timesheets", arr, count, curr });
 });
 
 exports.managerGetEmployees = fnCatch(async (req, res) => {
@@ -43,7 +73,7 @@ exports.adminResetPassword = fnCatch(async (req, res) => {
     await execute("UPDATE users SET username = ?, password = md5(?) WHERE id = ?", [username, `${password}:${process.env.SECRET}`, user_id]);
 
     message = `Please save, it will not return (Username: ${username}, Password: ${password})`;
-    return res.redirect(`/admin/${branch_id}/employees?success=${message}`);
+    return res.redirect(`/manager/employees?success=${message}`);
 });
 
 exports.managerGetProfile = fnCatch(async (req, res) => {
@@ -53,7 +83,20 @@ exports.managerGetProfile = fnCatch(async (req, res) => {
 });
 
 exports.managerTraining = fnCatch(async (req, res) => {
-    res.render("employee/main", { data: req.data, page: "training" });
+    res.render("manager/main", { data: req.data, page: "training" });
+});
+
+exports.managerGetRequests = fnCatch(async (req, res) => {
+    const { branch_id } = req.user;
+    const [arr, one] = await Promise.all([execute("SELECT * FROM requests WHERE branch_id = ? and active = true", [branch_id]), execute("SELECT * FROM requests WHERE branch_id = ? and id = ? and active = true", [branch_id, req.query.edit], 1)]);
+    return res.render("manager/main", { data: req.data, page: "requests", arr, one });
+});
+
+exports.managerStatusRequests = fnCatch(async (req, res) => {
+    const { branch_id } = req.user;
+    const { id, status } = req.query;
+    await execute("UPDATE requests SET status = ? WHERE branch_id = ? and id = ?", [status, branch_id, id]);
+    return res.redirect(`/manager/requests`);
 });
 
 exports.managerWait = fnCatch(async (req, res) => {

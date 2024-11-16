@@ -32,17 +32,39 @@
             </a>
         </li>
 
-        <li class="sidebar-header">Settings</li>
+        <li class="sidebar-item">
+            <a href="/manager/requests" class="sidebar-link <%- page=='requests'?'active':'' %>">
+                <i class="fa-regular fa-hand"></i>
+                <span>Requests</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item">
+            <a href="/manager/training" class="sidebar-link <%- page=='training'?'active':'' %>">
+                <i class="fa-solid fa-shapes"></i>
+                <span>Staff Training</span>
+            </a>
+        </li>
+
+        <li class="sidebar-header">My Settings</li>
         <li class="sidebar-item">
             <a href="/manager/profile" class="sidebar-link <%- page=='profile'?'active':'' %>">
                 <i class="fa-solid fa-user"></i>
                 <span>Profile</span>
             </a>
         </li>
+
         <li class="sidebar-item">
             <a href="/manager/salary_history" class="sidebar-link <%- page=='salary_history'?'active':'' %>">
                 <i class="fa-solid fa-clock-rotate-left"></i>
                 <span>Salary History</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item">
+            <a href="/manager/log_timesheets" class="sidebar-link <%- page=='timesheets'?'active':'' %>">
+                <i class="fa-regular fa-calendar"></i>
+                <span>Timesheets History</span>
             </a>
         </li>
     </ul>
